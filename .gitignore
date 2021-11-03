@@ -1,0 +1,7 @@
+node_modules
+node
+package-lock.json
+#.env
+.npmrc
+
+

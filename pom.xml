@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <packaging>pom</packaging>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.teragrep</groupId>
+  <artifactId>rlp_02</artifactId>
+  <version>${revision}${sha1}${changelist}</version>
+  <name>rlp_02</name>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>1.8</java.version>
+    <revision>0.0.1</revision>
+    <changelist>-SNAPSHOT</changelist>
+    <sha1/>
+    <node.version>v14.16.1</node.version>
+    <npm.version>6.14.5</npm.version>
+  </properties>
+  <build>
+  <plugins>
+    <plugin>
+      <groupId>com.github.eirslett</groupId>
+      <artifactId>frontend-maven-plugin</artifactId>
+      <version>1.10.0</version>
+      <configuration>
+        <nodeDownloadRoot>${plugin.frontend.nodeDownloadRoot}</nodeDownloadRoot>
+        <npmDownloadRoot>${plugin.frontend.npmDownloadRoot}</npmDownloadRoot>
+      </configuration>
+      <executions>
+       <!-- <execution>
+          <id>install node</id>
+          <goals>
+            <goal>install-node-and-npm</goal>
+          </goals>
+          <configuration>
+            <nodeVersion>${node.version}</nodeVersion>
+            <npmVersion>${npm.version}</npmVersion>
+          </configuration>
+        </execution>  
+        <execution> 
+          <id>npm install</id>
+          <goals>
+            <goal>npm</goal>
+          </goals> 
+          <configuration> 
+            <skip>${web.e2e.enabled}</skip> 
+          <arguments>install -_-no-lockfile</arguments>  
+          </configuration> 
+        </execution> 
+        <execution>
+          <id>npm build</id>
+          <goals>
+            <goal>npm</goal>
+          </goals>
+          <configuration>
+            <skip>${web.e2e.enabled}</skip>
+            <arguments>${web.build.command}</arguments>
+          </configuration>
+        </execution> 
+        <execution>
+          <id>npm test</id>
+          <goals>
+            <goal>npm</goal>
+          </goals>
+          <phase>test</phase>
+          <configuration>
+            <skip>${web.e2e.disabled}</skip>
+            <arguments>run karma-test</arguments>
+          </configuration>
+        </execution> 
+        <execution>
+          <id>npm e2e</id>
+          <goals>
+            <goal>npm</goal>
+          </goals>
+          <phase>integration-test</phase>
+          <configuration>
+            <skip>${web.e2e.disabled}</skip>
+            <arguments>run e2e</arguments>
+          </configuration>
+        </execution> -->
+      </executions>
+    </plugin>
+    <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>exec-maven-plugin</artifactId>
+      <version>3.0.0</version>
+      <executions>
+        <execution>
+          <id>exec-npm-install</id>
+           <phase>initialize</phase>
+           <configuration>
+              <workingDirectory></workingDirectory>
+              <executable>/usr/bin/npm</executable>
+              <arguments>
+                  <argument>install</argument>
+                  <argument>node</argument> 
+                  <argument>jasmine</argument>
+                  <argument>dotenv</argument>
+              </arguments>
+              <nodeVersion>${node.version}</nodeVersion>
+              <npmVersion>${npm.version}</npmVersion>
+            </configuration>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+        </execution>
+        <execution>
+          <id>npm config list </id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>validate</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>config</argument>
+								<argument>list</argument>
+							</arguments>
+						</configuration>
+        </execution>
+        <execution>
+          <id>npm test</id>
+          <goals>
+            <goal>exec</goal>
+          </goals>
+          <phase>test</phase>
+          <configuration>
+            <executable>npm</executable>
+            <skip>${web.e2e.disabled}</skip>
+            <arguments>
+            <argument>run </argument>
+            <argument>karma-test</argument>
+            </arguments>
+          </configuration>
+        </execution> 
+      </executions>
+    </plugin>
+  </plugins>
+  </build>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/teragrep/rlp_02</url>
+    </repository>
+  </distributionManagement>
+</project>
