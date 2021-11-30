@@ -114,7 +114,5 @@ function commit(){
    
     relpConnection.commit(relpBatch2);
     return resolve(true);
-    })
-	
-    
+    })  
 }

@@ -129,6 +129,7 @@ function commit(){
 
 
 /** 
+ * Using async module which provides straight-foreward, powerful  functions for working with asynchronus style.
  * As waterfall method takes the previous task output as the input for the next task,
  * thus need to feed the connection state for the disconnection.
  * 
