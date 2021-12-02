@@ -21,6 +21,6 @@ jobs:
 
     steps:
      - uses: actions/checkout@v2
-     - run: mvn clean package
+     - run: mvn clean install
     
     
