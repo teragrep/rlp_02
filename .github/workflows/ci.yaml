@@ -20,6 +20,7 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - run: mvn clean package
+     - uses: actions/checkout@v2
+     - run: mvn clean package
     
     
