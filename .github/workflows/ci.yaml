@@ -19,7 +19,7 @@ jobs:
      - run: mvn -version
      - run: mvn clean package
      - uses: JS-DevTools/npm-publish@v1
-        with:
+       with:
           token: ${{ secrets.NPM_TOKEN }}
     
     
