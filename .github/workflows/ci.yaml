@@ -18,5 +18,8 @@ jobs:
      - uses: actions/checkout@v2
      - run: mvn -version
      - run: mvn clean package
+     - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
     
     
