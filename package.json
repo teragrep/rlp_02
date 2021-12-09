@@ -1,6 +1,6 @@
 {
   "name": "@teragrep/rlp_02",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Client Library that implements the RELP protocol",
   "homepage": "http://teragrep.github.io/rlp_02/",
   "repository": {
