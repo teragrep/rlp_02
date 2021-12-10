@@ -20,8 +20,8 @@ jobs:
      - run: mvn clean package
      - uses: ncipollo/release-action@v1
        with:
-         tag_name: ${{ github.ref }}
-         release_name: Release $ {{ github.ref }}
+         tag: ${{ github.ref }}
+         name: Release $ {{ github.ref }}
     
   publish-npm:
     needs: build
