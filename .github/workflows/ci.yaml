@@ -19,6 +19,8 @@ jobs:
      - run: mvn -version
      - run: mvn clean package
      - uses: actions/checkout@v2
+       with:
+         tag_name: 'release'
      - uses: ncipollo/release-action@v1
     
   publish-npm:
