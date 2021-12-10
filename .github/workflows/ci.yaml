@@ -18,7 +18,7 @@ jobs:
      - uses: actions/checkout@v2
      - run: mvn -version
      - run: mvn clean package
-     - uses: actions/create-draft-release@v1.0.0
+     - uses: ncipollo/release-action@v1
        with:
          tag_name: ${{ github.ref }}
          release_name: Release $ {{ github.ref }}
