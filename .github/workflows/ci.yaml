@@ -20,7 +20,8 @@ jobs:
      - run: mvn clean package
      - uses: actions/checkout@v2
        with:
-         tag_name: 'release'
+         tag_name: ${{ github.ref }}
+         release_name: Release $ {{ github.ref }}
     
   publish-npm:
     needs: build
