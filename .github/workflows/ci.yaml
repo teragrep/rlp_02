@@ -21,7 +21,7 @@ jobs:
      - uses: ncipollo/release-action@v1
        with:
          tag: Release
-         tag_name: latest
+         name: latest
     
   publish-npm:
     needs: build
