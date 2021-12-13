@@ -15,6 +15,9 @@
     "test": "karma start --single-run  ./src/test/js/karma.conf.js",
     "karma-test": "jasmine"
   },
+  "publishConfig": {
+  "registry":"https://npm.pkg.github.com"
+},
   "author": "Teragrep",
   "license": "AGPL",
   "devDependencies": {
