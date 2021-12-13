@@ -20,7 +20,7 @@ jobs:
      - run: mvn clean package
      - uses: ncipollo/release-action@v1
        with:
-         tag: Release
+         tag: Release latest
     
   publish-npm:
     needs: build
