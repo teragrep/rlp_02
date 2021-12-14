@@ -5,7 +5,7 @@
   "homepage": "http://teragrep.github.io/rlp_02/",
   "repository": {
     "type": "git",
-    "url": "git+https:github.com/teragrep/rlp_02.git"
+    "url": "https:github.com/teragrep/rlp_02.git"
   },
   "bugs": {
     "url": "https://github.com/teragrep/rlp_02/issues"
