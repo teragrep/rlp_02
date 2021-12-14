@@ -47,5 +47,5 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPMJS_AUTOMATION}}
+          TOKEN: ${{secrets.GITHUB_TOKEN}}
     
