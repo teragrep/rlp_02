@@ -28,7 +28,7 @@ let cfePort = 1601;
 */
 
 // Disabled for the success build on the jenkins pipeline
-
+/*
 async.waterfall(
     [
 		function init(setConnect) {
@@ -46,7 +46,7 @@ async.waterfall(
         }
     }
 );
-
+*/
 
 async function connect() {
 		return  relpConnection.connect(cfePort, host);	

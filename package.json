@@ -16,8 +16,8 @@
     "karma-test": "jasmine"
   },
   "publishConfig": {
-  "registry":"https://npm.pkg.github.com"
-},
+    "registry": "https://npm.pkg.github.com"
+  },
   "author": "Teragrep",
   "license": "AGPL",
   "devDependencies": {
@@ -29,8 +29,10 @@
     "karma": "^6.3.3",
     "karma-jasmine": "^4.0.1",
     "karma-requirejs": "^1.1.0",
-    "node": "^14.18.1",
+    "node": "^14.18.2",
     "requirejs": "^2.3.6"
   },
-  "keywords": ["relp"]
+  "keywords": [
+    "relp"
+  ]
 }

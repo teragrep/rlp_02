@@ -23,6 +23,7 @@ let cfePort = 1601;
  * 
 */
 
+/* Coverity Build purpose
 
 async.waterfall(
     [
@@ -44,6 +45,7 @@ async.waterfall(
     }
 );
 
+*/
 
 async function connect() {
 		let conn = await relpConnection.connect(cfePort, host);	
