@@ -48,9 +48,10 @@ jobs:
           tar czvf rlp_02.tgz cov-int
           
       - name: Upload to Coverity
-        run: curl --silent --form token=55xtJGU6Zr8J2ohTGzcLyw \
-             --form email=mayura.selvarajah@fail-safe.net \
-             --form file=@rlp_02.tgz \
-             --form version="1.0.0" \
-             --form description="Description" \
-             https://scan.coverity.com/builds?project=teragrep%2Frlp_02
+        run: |
+            curl --silent --form token=55xtJGU6Zr8J2ohTGzcLyw \
+            --form email=mayura.selvarajah@fail-safe.net \
+            --form file=@rlp_02.tgz \
+            --form version="1.0.0" \
+            --form description="Description" \
+            https://scan.coverity.com/builds?project=teragrep%2Frlp_02
