@@ -46,12 +46,13 @@ jobs:
         run: |
           ${{ env.COVERITY }}/bin/cov-build --dir cov-int mvn -DskipTests=true --batch-mode clean compile
           tar czvf rlp_02.tgz cov-int
+          tail cov-int/build-log.txt
           
       - name: Upload to Coverity
         run: |
             curl --silent --form token=55xtJGU6Zr8J2ohTGzcLyw \
             --form email=mayura.selvarajah@fail-safe.net \
             --form file=@rlp_02.tgz \
-            --form version="1.0.0" \
+            --form version="${GITHUB_REF##*/}" \
             --form description="Description" \
             https://scan.coverity.com/builds?project=teragrep%2Frlp_02
