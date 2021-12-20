@@ -40,7 +40,7 @@ jobs:
         run: |
           wget https://scan.coverity.com/download/linux64 --post-data "token=55xtJGU6Zr8J2ohTGzcLyw&project=teragrep%2Frlp_02" -O coverity_tool.tgz
           mkdir -p ${{ env.COVERITY }}
-          tar zxvf ${{ env.COVERITY }}.tgz -C ${{ env.COVERITY }} --strip-components 1
+          tar zxvf rlp_02.tgz -C ${{ env.COVERITY }} --strip-components 1
         
       - name: Compile Coverity
         run: |
