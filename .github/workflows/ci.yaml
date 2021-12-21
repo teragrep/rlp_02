@@ -26,7 +26,7 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
 
       - name: Compile Test and Verify
-        run: mvn --batch-mode clean verify
+        run: mvn clean package
         
       - name: Cache Coverity
         id: cache_coverity
