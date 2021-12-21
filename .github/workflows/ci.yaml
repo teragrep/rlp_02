@@ -26,7 +26,7 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
 
       - name: Compile Test and Verify
-        run: mvn clean package
+        run: mvn --batch-mode clean verify
         
       - name: Cache Coverity
         id: cache_coverity
@@ -44,7 +44,7 @@ jobs:
         
       - name: Compile Coverity
         run: |
-          ${{ env.COVERITY }}/bin/cov-build --dir cov-int mvn -DskipTests=true --batch-mode clean compile
+          ${{ env.COVERITY }}/bin/cov-build --dir cov-int --fs-capture-search ./ mvn -DskipTests=true compile
           tar czvf rlp_02.tgz cov-int
           tail cov-int/build-log.txt
           
