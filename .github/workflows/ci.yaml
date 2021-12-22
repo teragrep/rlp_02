@@ -38,7 +38,7 @@ jobs:
       - name: Download Coverity
         if: steps.cache_coverity.outputs.cache-hit != 'true'
         run: |
-          wget https://scan.coverity.com/download/linux64 --post-data "token=55xtJGU6Zr8J2ohTGzcLyw&project=teragrep%2Frlp_02" -O coverity_tool.tgz
+          wget https://scan.coverity.com/download/linux64 --post-data "token=${{ secrets.COVERITY_TOKEN }}&project=teragrep%2Frlp_02" -O coverity_tool.tgz
           mkdir -p ${{ env.COVERITY }}
           tar zxvf ${{ env.COVERITY }}.tgz -C ${{ env.COVERITY }} --strip-components 1
         
@@ -50,9 +50,9 @@ jobs:
           
       - name: Upload to Coverity
         run: |
-            curl --silent --form token=55xtJGU6Zr8J2ohTGzcLyw \
-            --form email=mayura.selvarajah@fail-safe.net \
+            curl --silent --form token=${{ secrets.COVERITY_TOKEN }} \
+            --form email=${{ secrets.COVERITY_EMAIL }}  \
             --form file=@rlp_02.tgz \
             --form version="${GITHUB_REF##*/}" \
-            --form description="Description" \
+            --form description="automated upload" \
             https://scan.coverity.com/builds?project=teragrep%2Frlp_02
