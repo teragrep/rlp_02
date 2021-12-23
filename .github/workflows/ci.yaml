@@ -44,7 +44,7 @@ jobs:
         
       - name: Compile Coverity
         run: |
-           ${{ env.COVERITY }}/bin/cov-build --dir cov-int --fs-capture-search ./ mvn -DskipTests=true --batch-mode clean compile
+           rlp_02/bin/cov-build --dir cov-int --fs-capture-search ./ npm install
            tar czvf rlp_02.tgz cov-int        
 
       - name: Upload to Coverity
