@@ -13,7 +13,8 @@
   "main": "",
   "scripts": {
     "test": "karma start --single-run  ./src/test/js/karma.conf.js",
-    "karma-test": "jasmine"
+    "karma-test": "jasmine",
+    "build": "npm run build"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
