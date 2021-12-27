@@ -45,7 +45,6 @@ jobs:
       - name: Compile Coverity
         run: |
            rlp_02 --dir cov-int --fs-capture-search ./ mvn -DskipTests=true compile
-           /home/runner/work/rlp_02/rlp_02 npm install 
            tar czvf rlp_02.tgz cov-int        
 
       - name: Upload to Coverity
