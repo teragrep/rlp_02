@@ -43,7 +43,7 @@ jobs:
           tar zxvf ${{ env.COVERITY }} -C rlp_02 --strip-components 1
       - name: Compile Coverity
         run: |
-           ${{ env.COVERITY }}/bin/cov-build --dir cov-int mvn -DskipTests=true --batch-mode clean compile
+           ${{ env.COVERITY }}/bin/cov-build --dir cov-int --fs-capture-search ./ mvn -DskipTests=true --batch-mode clean compile
            tar czvf rlp_02.tgz cov-int        
 
       - name: Upload to Coverity
