@@ -39,12 +39,12 @@ jobs:
         if: steps.cache_coverity.outputs.cache-hit != 'true'
         run: |
           wget https://scan.coverity.com/download/linux64 --post-data "token=${{ secrets.COVERITY_TOKEN }}&project=teragrep%2Frlp_02" -O rlp_02.tgz
-          mkdir -p rlp_02
-          tar zxvf rlp_02.tgz -C rlp_02 --strip-components 1
+          mkdir -p ${{ env.COVERITY }}
+	        tar zxvf ${{ env.COVERITY }}.tgz -C ${{ env.COVERITY }} --strip-components 1
         
       - name: Compile Coverity
         run: |
-           rlp_02 --dir cov-int --fs-capture-search ./ mvn -DskipTests=true compile
+           ${{ env.COVERITY }}/bin/cov-build --dir cov-int mvn -DskipTests=true --batch-mode clean compile
            tar czvf rlp_02.tgz cov-int        
 
       - name: Upload to Coverity
