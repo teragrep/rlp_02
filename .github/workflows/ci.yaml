@@ -40,7 +40,7 @@ jobs:
         run: |
           wget https://scan.coverity.com/download/linux64 --post-data "token=${{ secrets.COVERITY_TOKEN }}&project=teragrep%2Frlp_02" -O ${{ env.COVERITY }}.tgz
           mkdir -p ${{ env.COVERITY }}
-          tar zxvf ${{ env.COVERITY }} -C ${{ env.COVERITY }} --strip-components 1
+          tar zxvf ${{ env.COVERITY }}.tgz -C ${{ env.COVERITY }} --strip-components 1
       - name: Compile Coverity
         run: |
            ${{ env.COVERITY }}/bin/cov-build --dir cov-int --fs-capture-search ./ mvn -DskipTests=true --batch-mode clean compile
