@@ -29,18 +29,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-    publish:
-        if: github.ref == 'refs/heads/main'
-        needs: upload
+  publish:
+      if: github.ref == 'refs/heads/main'
+      needs: upload
       runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14
-      - name: Publish
-        run: |
-          npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-          npm publish --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPMJS_AUTOMATION}}
+      steps:
+        - uses: actions/checkout@v2
+        - uses: actions/setup-node@v1
+          with:
+            node-version: 14
+        - name: Publish
+          run: |
+              npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+              npm publish --ignore-scripts
+          env:
+              NODE_AUTH_TOKEN: ${{secrets.NPMJS_AUTOMATION}}
