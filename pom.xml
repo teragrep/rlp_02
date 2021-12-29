@@ -142,7 +142,7 @@
       <repository>
          <id>github</id>
          <name>GitHub Packages</name>
-         <url>https://maven.pkg.github.com/teragrep/rlp_02</url>
+         <url>https://npm.pkg.github.com/teragrep/rlp_02</url>
       </repository>
    </distributionManagement>
 </project>
