@@ -25,7 +25,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Publish to GitHub Packages
-        run: mvn --batch-mode -Drevision=${{ github.event.release.tag_name }} -Dsha1= -Dchangelist= clean deploy -Ppublish-github-packages
+        run: mvn clean package
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
