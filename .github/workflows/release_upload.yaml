@@ -28,7 +28,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Publish to GitHub Packages
-        run: mvn --batch-mode -Drevision=${{ github.event.release.tag_name }} -Dsha1= -Dchangelist= clean deploy -Ppublish-github-packages
+        run: mvn clean deploy -Ppublish-github-packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
@@ -41,9 +41,9 @@ jobs:
         - uses: actions/setup-node@v1
           with:
             node-version: 14
+            registry-url: https://registry.npmjs.org/
         - name: Publish
           run: |
-              npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-              npm publish --ignore-scripts
+            npm publish --ignore-scripts
           env:
             NODE_AUTH_TOKEN: ${{secrets.NPMJS_AUTOMATION}}
