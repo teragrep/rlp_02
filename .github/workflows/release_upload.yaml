@@ -44,7 +44,6 @@ jobs:
 
         - name: Publish
           run: |
-            npm config set //registry.npmjs.org/:_authToken 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
             npm publish --ignore-scripts
           env:
             NODE_AUTH_TOKEN: ${{secrets.NPMJS_AUTOMATION}}
