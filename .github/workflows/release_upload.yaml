@@ -44,6 +44,7 @@ jobs:
 
         - name: Publish
           run: |
+            npm login --scope=@teragrep --registry=https://npm.pkg.github.com
             npm publish --ignore-scripts
           env:
             NODE_AUTH_TOKEN: ${{secrets.NPMJS_AUTOMATION}}
