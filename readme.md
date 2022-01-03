@@ -1,5 +1,12 @@
-![Teragrep Logo](https://raw.githubusercontent.com/teragrep/rlp_02/master/logo/rlp-logo_readme.jpg)
-[![Build Status via Travis CI](https://travis-ci.org/teragrep/rlp_02.svg?branch=master)](https://travis-ci.org/teragrep/rlp_02)
+![Teragrep Logo](https://avatars.githubusercontent.com/u/71876378?s=200&v=4)
+[![Build Status via Coverity tool]
+
+<a href="https://scan.coverity.com/projects/teragrep-rlp_02">
+  <img alt="Coverity Scan Build Status"
+       src="https://scan.coverity.com/projects/24236/badge.svg"/>
+</a>
+
+
 ---
 
 ## RLP-02

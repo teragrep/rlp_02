@@ -48,11 +48,13 @@ jobs:
              run: |
              echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
              echo "@teragrep=https://npm.pkg.github.com/" >> .npmrc
+             echo "//registry.npmjs.org/:_authToken=${{secrets.NPMJS_AUTOMATION}}" >> .npmrc
+             echo "@teragrep:registry=//registry.npmjs.org/" >> .npmrc
              echo "email=38@teragrep.com" >> .npmrc
              cat .npmrc
           
         - name: Publish
           run: |
-            npm publish --ignore-scripts
+            npm publish --ignore-scripts --scope=@teragrep
           env:
             NODE_AUTH_TOKEN: ${{secrets.NPMJS_AUTOMATION}}
