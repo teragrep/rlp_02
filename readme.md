@@ -1,5 +1,4 @@
 ![Teragrep Logo](https://avatars.githubusercontent.com/u/71876378?s=200&v=4)
-[![Build Status via Coverity tool]]
 
 <a href="https://scan.coverity.com/projects/teragrep-rlp_02">
   <img alt="Coverity Scan Build Status"
