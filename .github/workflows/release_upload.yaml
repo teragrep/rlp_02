@@ -26,6 +26,12 @@ jobs:
           java-version: 8.0.292+10
           distribution: 'adopt'
 
+      - name: Setup npmrc 
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
+          echo "@teragrep=https://npm.pkg.github.com/" >> .npmrc
+          echo "email=38@teragrep.com" >> .npmrc
+                    
       - name: Maven build package
         run: mvn clean package
         env:
@@ -41,10 +47,10 @@ jobs:
           with:
             node-version: 14
             registry-url: https://registry.npmjs.org/
-        
-        - name: npmrc 
-          run: cat .npmrc
 
+        - name: npmrc print
+          run: cat .npmrc
+          
         - name: Publish
           run: |
             npm publish --ignore-scripts
