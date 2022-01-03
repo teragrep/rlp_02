@@ -24,27 +24,27 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 8.0.292+10
-          distribution: 'adopt'     
+          distribution: 'adopt'
+
+      - name: Maven build package
         run: mvn clean package
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
   publish:
-    
       if: github.ref == 'refs/heads/automation'
       needs: upload
       runs-on: ubuntu-latest
       steps:
-        - name: Publish to GitHub Packages
         - uses: actions/checkout@v2
         - uses: actions/setup-node@v1
           with:
             node-version: 14
             registry-url: https://registry.npmjs.org/
-            
+        
         - name: npmrc 
-          run: cat .npmrc
-
+          run: cat npmrc
+          
         - name: Publish
           run: |
             npm publish --ignore-scripts
