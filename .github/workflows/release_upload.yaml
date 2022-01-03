@@ -48,8 +48,6 @@ jobs:
              run: |
              echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
              echo "@teragrep=https://npm.pkg.github.com/" >> .npmrc
-             echo "//registry.npmjs.org/:_authToken=${{secrets.NPMJS_AUTOMATION}}" >> .npmrc
-             echo "@teragrep:registry=//registry.npmjs.org/" >> .npmrc
              echo "email=38@teragrep.com" >> .npmrc
              cat .npmrc
           
