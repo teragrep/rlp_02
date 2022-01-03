@@ -43,8 +43,8 @@ jobs:
             registry-url: https://registry.npmjs.org/
         
         - name: npmrc 
-          run: cat npmrc
-          
+          run: cat .npmrc
+
         - name: Publish
           run: |
             npm publish --ignore-scripts
