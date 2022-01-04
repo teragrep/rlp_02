@@ -38,18 +38,13 @@ jobs:
         - uses: actions/setup-node@v1
           with:
             node-version: 14
-            #registry-url: https://registry.npmjs.org/
-
-        - name: setup .npmrc 
-          run:  |
-             echo "@teragrep=https://npm.pkg.github.com/" >> .npmrc
-             echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
-             echo "//registry.npmjs.org/:_authToken=${{secrets.NPMJS_AUTOMATION}}" >> .npmrc
-             echo "email=38@teragrep.com" >> .npmrc
-             cat .npmrc
+            registry-url: https://registry.npmjs.org/
       
         - name: Publish
           run: |
+            npm config set registry https://npm.pkg.github.com
+            npm set //npm.pkg.github.com/:_authToken ${{ secrets.GITHUB_TOKEN }}
+            npm set //registry.npmjs.org/:_authToken ${{secrets.NPMJS_AUTOMATION}}
             npm publish --access public --ignore-scripts --@teragrep:registry='https://registry.npmjs.org'
           env:
             NODE_AUTH_TOKEN: ${{secrets.NPMJS_AUTOMATION}}
@@ -61,6 +56,6 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            tag_name: v1.0.14
-            release_name: v1.0.14
+            tag_name: v1.0.15
+            release_name: v1.0.15
           
