@@ -40,24 +40,13 @@ jobs:
             node-version: 14
             #registry-url: https://registry.npmjs.org/
 
-        - name: setup .npmrc 
+        - name: publish package  
           run:  |
              run: |
-             echo "//registry.npmjs.org/:_authToken=${{secrets.NPMJS_AUTOMATION}}" >> .npmrc
-             echo 'scope="teragrep"' >> .npmrc
-             echo "@teragrep:registry=https://registry.npmjs.org/" >> .npmrc
-             echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> .npmrc
-             echo "@teragrep=https://npm.pkg.github.com/" >> .npmrc
-             echo "email=38@teragrep.com" >> .npmrc
-             echo "tag ${{ github.event.release.tag_name }}" >> .npmrc
-             cat .npmrc
-          
-        - name: Publish
-          run: |
-            npm publish --access public --ignore-scripts
-          env:
-            NODE_AUTH_TOKEN: ${{secrets.NPMJS_AUTOMATION}}
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+             npm config set registry https://npm.pkg.github.com
+             npm set //npm.pkg.github.com/:_authToken ${{ secrets.GITHUB_TOKEN }}
+             npm set //registry.npmjs.org/:_authToken ${{secrets.NPMJS_AUTOMATION}}
+             npm publish --access public --ignore-scripts
         
         - name: Create Release 
           if: ${{ !startsWith(github.ref, 'refs/tags/') }}
@@ -65,6 +54,6 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            tag_name: v1.0.10
+            tag_name: v1.0.11
             release_name: v1.0.10
           
