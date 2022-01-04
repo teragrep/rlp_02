@@ -15,10 +15,7 @@
     "test": "karma start --single-run  ./src/test/js/karma.conf.js",
     "karma-test": "jasmine",
     "postpublish": "npm run publish-npm",
-    "publish-npm": "npm publish --access public --ignore-scripts --@teragrep:registry='https://registry.npmjs.org'"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "publish-npm": "npm publish --access public --ignore-scripts"
   },
   "author": "Teragrep",
   "license": "AGPL",
