@@ -50,8 +50,7 @@ jobs:
       
         - name: Publish
           run: |
-            npm publish --access public --ignore-scripts  --@teragrep:registry='https://npm.pkg.github.com'
-          env:
+            npm publish --access public --ignore-scripts --@teragrep:registry='https://registry.npmjs.org'
             NODE_AUTH_TOKEN: ${{secrets.NPMJS_AUTOMATION}}
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
@@ -61,6 +60,6 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            tag_name: v1.0.19
-            release_name: v1.0.19
+            tag_name: v1.0.19-rc
+            release_name: v1.0.19-rc
           
