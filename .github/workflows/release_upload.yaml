@@ -54,7 +54,7 @@ jobs:
           
         - name: Publish
           run: |
-            npm publish
+            npm publish --access public --ignore-scripts
           env:
             NODE_AUTH_TOKEN: ${{secrets.NPMJS_AUTOMATION}}
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
