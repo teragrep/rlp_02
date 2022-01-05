@@ -45,7 +45,7 @@ jobs:
         - name: Github package registry authentication
           run: npm set //npm.pkg.github.com/:_authToken ${{ secrets.GITHUB_TOKEN }}
         - name: Npm registry authentication
-          run: npm set //registry.npmjs.org/:_authToken ${{ secrets.NPMJS_TOKEN }}
+          run: npm set //registry.npmjs.org/:_authToken ${{secrets.NPMJS_AUTOMATION}}
         - name: Publish packages
           run: npm publish 
 
