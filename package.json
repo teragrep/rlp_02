@@ -1,6 +1,6 @@
 {
   "name": "@teragrep/rlp_02",
-  "version": "v1.0.19-rc3",
+  "version": "v1.0.19-rc4",
   "description": "Client Library that implements the RELP protocol",
   "homepage": "http://teragrep.github.io/rlp_02/",
   "repository": {
@@ -13,7 +13,9 @@
   "main": "",
   "scripts": {
     "test": "karma start --single-run  ./src/test/js/karma.conf.js",
-    "karma-test": "jasmine"
+    "karma-test": "jasmine",
+    "postpublish": "npm run publish-npm",
+    "publish-npm": "npm publish --access public --ignore-scripts --@teragrep:registry='https://registry.npmjs.org'"
   },
   "author": "Teragrep",
   "license": "AGPL",
