@@ -55,6 +55,6 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            tag_name: v1.0.19-rc4
-            release_name: v1.0.19-rc4
+            tag_name: v1.0.19-rc5
+            release_name: v1.0.19-rc5
           
