@@ -11,7 +11,7 @@ jobs:
     uses: teragrep/rlp_02/.github/workflows/coverity_upload.yaml@automation
           
   publish:
-      # if: github.ref == 'refs/heads/automation'
+      if: github.ref == 'refs/heads/automation'
       needs: [upload]
       runs-on: ubuntu-latest
       steps:
