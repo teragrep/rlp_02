@@ -8,7 +8,7 @@ on:
 jobs:
   # Confirm that build was upload successfully
   upload:
-    uses: teragrep/rlp_02/.github/workflows/ci.yaml@master
+    uses: teragrep/rlp_02/.github/workflows/ci.yaml@automation
           
   publish:
       # if: github.ref == 'refs/heads/automation'
