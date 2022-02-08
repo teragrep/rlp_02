@@ -19,7 +19,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "author": "Teragrep",
-  "license": "AGPL",
+  "license": "Apache-2.0",
   "devDependencies": {
     "async": "^3.2.1",
     "dotenv": "^10.0.0",
