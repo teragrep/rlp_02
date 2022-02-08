@@ -22,13 +22,13 @@
   "devDependencies": {
     "async": "^3.2.1",
     "dotenv": "^10.0.0",
-    "jasmine": "^3.10.0",
+    "jasmine": "^3.99.0",
     "jasmine-core": "^3.7.1",
     "jasmine-node": "^1.16.0",
     "karma": "^6.3.3",
     "karma-jasmine": "^4.0.1",
     "karma-requirejs": "^1.1.0",
-    "node": "^14.18.2",
+    "node": "^14.19.0",
     "requirejs": "^2.3.6"
   },
   "keywords": [
