@@ -5,5 +5,5 @@ on: push
 jobs:
   # Confirm the coverity upload
   coverity_upload:
-    uses: teragrep/rlp_02/.github/workflows/coverity_upload.yaml@automation
+    uses: teragrep/rlp_02/.github/workflows/coverity_upload.yaml@main
   
