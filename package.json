@@ -18,7 +18,7 @@
     "publish-npm": "npm publish --access public --ignore-scripts --@teragrep:registry='https://registry.npmjs.org'"
   },
   "author": "Teragrep",
-  "license": "AGPL",
+  "license": "Apache-2.0",
   "devDependencies": {
     "async": "^3.2.1",
     "dotenv": "^10.0.0",
