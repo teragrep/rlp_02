@@ -2,7 +2,9 @@ name: coverity upload
 
 on: 
   workflow_call:
-
+    secrets: 
+      envPAT:
+        required: true
 jobs:
   verify:
     name: Verify Code
