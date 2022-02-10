@@ -3,7 +3,9 @@ name: coverity upload
 on: 
   workflow_call:
     secrets: 
-      envPAT:
+      COVERITY_TOKEN:
+        required: true
+      COVERITY_EMAIL: 
         required: true
 jobs:
   verify:
