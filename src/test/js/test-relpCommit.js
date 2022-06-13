@@ -23,7 +23,7 @@ let cfePort = 1601;
  * 
 */
 
-/* Coverity Build purpose
+// Coverity Build purpose
 
 async.waterfall(
     [
@@ -45,7 +45,7 @@ async.waterfall(
     }
 );
 
-*/
+
 
 async function connect() {
 		let conn = await relpConnection.connect(cfePort, host);	
@@ -63,7 +63,7 @@ async function disconnect(state) {
 }
 
 
-let data = Buffer.from('abc\n', 'ascii');
+let data = Buffer.from('<34>1 2003-10-11T22:14:15.003Z mymachine.example.com su - ID47 - su root failed for lonvick on /dev/pts/8\n', 'ascii');
 let data2 = Buffer.from('<34>1 2003-10-11T22:14:15.003Z mymachine.example.com su - ID47 - su root failed for lonvick on /dev/pts/8\n', 'ascii'); 
 let invalidData = Buffer.from('<344565>5 2003-08-24T05:14:15.000000003-07:00 mymachine.example.com su - ID47 - su root failed for lonvick on /dev/pts/8\n', 'ascii'); // This contains the invalid PRI value
 let sampleData  = Buffer.from('<165>1 2003-10-11T22:14:15.003Z mymachine.example.comevntslog - ID47 [exampleSDID@32473 iut="3" eventSource="Application" eventID="1011"] BOMAn applicationevent log entry...\n','ascii');
@@ -73,7 +73,6 @@ function commit(){
     return new Promise(async(resolve, reject) => {
 
     let relpBatch = new RelpBatch();
-    console.log((typeof dataArray ));
     relpBatch.insert(data);
     relpBatch.insert(data);
     relpBatch.insert(data);
@@ -102,7 +101,11 @@ function commit(){
            }    
 
     let relpBatch2 = new RelpBatch();
-    
+
+    // Tested for the Max Messages approx around 10250 messages works fine, however, more than 10300 might produce RangeError 
+    for(let i = 0; i < 10250; i++){
+         relpBatch2.insert(data2);
+    }    
     relpBatch2.insert(data2);
     relpBatch2.insert(invalidData); // is CFE-25 accepts some of the invalid forms like version n# or pri value
     relpBatch2.insert(data2);
@@ -113,6 +116,7 @@ function commit(){
     relpBatch2.insert(invalidData);
     relpBatch2.insert(sampleData);
 
+    
    
     relpConnection.commit(relpBatch2);
     return resolve(true);

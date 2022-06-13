@@ -450,9 +450,10 @@
                                        
                      if (notComplete){  
                         chunk = this._socket.read(); // This will remove the content from the internal buffer
+                        if(chunk != null) {
                         console.log(`Read ${chunk.length} bytes of data...`);
                         hasRemaining =chunk.length;
-                        
+                        }
                          
                         while(i < hasRemaining){ // This is going to read the entire recieved packet
 
