@@ -161,13 +161,16 @@ async.waterfall(
         }
     }
 );
-
+```
 
 ### Usage of our RLP_02 RelpConnection with RLO_08 component
+```JavaScript 
+
 /*
+* Note: This is ONLY shown the part of necessary code snippets. 
 * In this demo, we use Relp Logging Out component generates the Syslog message, 
-* then using RLP_02 lib to setup the connection to our Java-Relp-Server-Demo 
-* application. Thus when 
+* then using RLP_02 component to setup the connection to our Java-Relp-Server-Demo 
+* application. 
 */
 let relpConnection;
 const host = 'localhost';
@@ -175,7 +178,7 @@ const port = 1601;
 
 /*
 * Setup the relp connection to the Java-Relp-Demo application
-* which in this usecase configure to running on port 1601
+* which in this use case configure to running on port 1601
 */
 async function setupConnection(port, host){
     return new Promise(async (resolve, reject) => {
