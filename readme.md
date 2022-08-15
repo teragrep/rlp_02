@@ -163,6 +163,102 @@ async.waterfall(
 );
 
 
+### Usage of our RLP_02 RelpConnection with RLO_08 component
+/*
+* In this demo, we use Relp Logging Out component generates the Syslog message, 
+* then using RLP_02 lib to setup the connection to our Java-Relp-Server-Demo 
+* application. Thus when 
+*/
+let relpConnection;
+const host = 'localhost';
+const port = 1601;
+
+/*
+* Setup the relp connection to the Java-Relp-Demo application
+* which in this usecase configure to running on port 1601
+*/
+async function setupConnection(port, host){
+    return new Promise(async (resolve, reject) => {
+      relpConnection = new RelpConnection();
+      let conn = await relpConnection.connect(port, host);	
+      console.log('Connectig...',host,' at PORT ', port)
+      resolve(relpConnection)
+    })
+}
+
+/*
+* This ensures to confirm the connection on the request, setup the relpconnection 
+* 
+*/
+server.on("request", async(req, res) => {
+    await setupConnection(port, host) // 
+    if(req.url == '/'){
+        return getHome(req, res)
+    }
+    else if(req.url == "/ua"){
+        return getUA(req, res)
+    }
+})
+/*
+* Endpoint for access to the generated response with user agent and syslog message 
+*/
+async function getUA(req, res){
+
+    const userAgent = req.headers['user-agent']
+    const ip = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddres || req.socket.remoteAddress || '';
+  
+    // Set response header
+    res.writeHead(200, { 'Content-Type': 'text/html' }); 
+    const dateTimestamp = '2014-07-24T17:57:36+03:00';
+    const timestamp = (new Date(dateTimestamp)).getTime();
+          
+    let message = new SyslogMessage.Builder()
+            .withAppName('bulk-data-sorted') //valid
+            .withHostname(ip) 
+            .withFacility(Facility.LOCAL0)
+            .withSeverity(Severity.INFORMATIONAL)
+            .withProcId('8740') 
+            .withMsgId('ID47')
+            .withMsg(userAgent) 
+            .withSDElement(new SDElement("exampleSDID@32473", new SDParam("iut", "3"), new SDParam("eventSource", "Application")))  
+            .withDebug(true)
+            .build()
+  
+    let rfc5424message;
+        rfc5424message = await message.toRfc5424SyslogMessage();
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.write(rfc5424message.toString(), 'utf-8', async() => {
+            await commit(rfc5424message)
+        });
+        res.end(); //end the response
+}
+/*
+* Using the established relp connection commit the messages.
+*/
+async function commit(msg){
+    return new Promise(async(resolve, reject) => {
+      let relpBatch = new RelpBatch();
+      relpBatch.insert(msg);
+      
+      let resWindow = await relpConnection.commit(relpBatch);
+      console.log('After Batch-1 Completion....', resWindow)
+      
+      let notSent = (resWindow === true) ? true : false; //Test purpose 
+      while(notSent){                          
+        let res = await relpBatch.verifyTransactionAllPromise();                              
+        if(res){
+            notSent = false;
+            console.log('VerifyTransactionAllPromise......', res);
+            resolve(true);
+            }
+        else{
+          reject(false);
+            }                            
+      }    
+     return resolve(true);
+    }) 
+}
+
 ```
 ### TODO
 
