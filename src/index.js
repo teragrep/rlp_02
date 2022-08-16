@@ -14,7 +14,7 @@
  */
 
 const AbstractRelpFrame = require('../src/main/js/AbstractRelpFrame')
-const RelpBatach = require('../src/main/js/RelpBatch')
+const RelpBatch = require('../src/main/js/RelpBatch')
 const RelpConnection = require('../src/main/js/RelpConnection')
 const RelpConnectionCommand = require('../src/main/js/RelpConnectionCommand')
 const RelpConnectionState = require('../src/main/js/RelpConnectionState')
@@ -27,7 +27,7 @@ const TxID = require('../src/main/js/TxID')
 
 module.exports = {
     AbstractRelpFrame,
-    RelpBatach,
+    RelpBatch,
     RelpConnection,
     RelpConnectionCommand,
     RelpConnectionState,
