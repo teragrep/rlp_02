@@ -29,8 +29,16 @@ npm install @teragrep/rlp_02
 ```
 
 ---
+### Importing modules
 
+Supporting from version "@teragrep/rlp_02": "^1.0.19-rc12"
 
+```javascript
+
+const { RelpConnection, RelpBatch, RelpRequest, RelpBatch, RelpWindow } = require('@teragrep/rlp_02')
+```
+
+---
 ### Test
 
 The Maven build executes the test goal. Karma is a testing harness that is configured to jasmine framework. 

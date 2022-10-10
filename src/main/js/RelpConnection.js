@@ -380,7 +380,7 @@
              relpRequest.write(byteBuffer);
  
              //TODO: Socket conn Timeout
-             this._socket.write(relpRequest.toString(), 'ascii'); //TODO: req the Validation 
+             this._socket.write(relpRequest.toString(), 'utf8'); //TODO: req the Validation 
              console.log('---------------------Benchmarking on SendRelpRequestAsync------------------------%ss', (Date.now() - startTime)/1000);       
         }) 
    }

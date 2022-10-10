@@ -67,7 +67,8 @@
          }
          //TODO: Check the behaviour
          else if(arguments.length == 2){
-             super(null, command, data != null ? data.length : 0);
+             console.log('Data Length in RelpRequest >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',Buffer.byteLength(data) )
+             super(null, command, data != null ? Buffer.byteLength(data) : 0);
              this._command = command;
              this._data = data;
              if(this._data == null){
@@ -103,7 +104,7 @@
              dst[i] = '\n'.charCodeAt(0); //  NL char code 10
  
              if(process.env.NODE_ENV == 'RELP_DEBUG'){
-                 console.log("RELPFrameTX.write > Message length "+ this.length()+ "\n");
+                 console.log("RELPFrameTX.write > Message length "+ Buffer.byteLength(dst) + 'This is DST '+ this.length()+ "\n");
              }   
          }
          catch(IOError) {
@@ -124,10 +125,12 @@
          if(this._data == null){
              this._dataLength = 0;
          }
-         let dataLength = Buffer.from(this._dataLength.toString(),'ascii').length;    
+         let dataLength = Buffer.from(this._data.toString(),'utf8').length;    
          let sp3 = 1;
-         let data = (this._data == null ? 0 : this._data.length);
+         let data = (this._data == null ? 0 : Buffer.byteLength(this._data,'utf8'));
          let trailer = 1;
+         console.log('CALCULATED LENGTH in RELPREQUEST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',(txn + sp1 + command + sp2 + dataLength + sp3 + data + trailer))
+         console.log('CALCULATED LENGTH in RELPREQUEST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',( dataLength + ' DATA '+ data))
  
          return txn + sp1 + command + sp2 + dataLength + sp3 + data + trailer;
      }
@@ -182,7 +185,7 @@
          let txtBuf = Buffer.from(this._transactionNumber.toString(), 'ascii');
          let cmdBuf = Buffer.from(this._command.toString(),'ascii');
          let spBuf = Buffer.from(' ');
-         let dataLengthBuf = Buffer.from(this._dataLength.toString(),'ascii');
+         let dataLengthBuf = Buffer.from(this._dataLength.toString(),'utf8');
          let dstCpy = Buffer.concat([txtBuf, spBuf, cmdBuf, spBuf, dataLengthBuf]);
  
          // Generate the HEADER in the Buffer by copy from the dstCpy
