@@ -46,7 +46,7 @@ describe('Validate the constructors', () => {
     let relpRequest = new RelpRequest(COMMAND_OPEN, data);
     relpRequest._transactionNumber = 999999999;
     relpRequest.write(dst);
-
+/*
     it('Relp Message length should be 72', () => {
         console.log('RELP Message Length = '+relpRequest.length());
         console.log(relpRequest.toString());
@@ -55,7 +55,8 @@ describe('Validate the constructors', () => {
 
     });
 
-    //TODO
+  */
+   //TODO
     it('Relp Message Header  should be', () => {
        // expect('10 open 5').toBe(result);
     });

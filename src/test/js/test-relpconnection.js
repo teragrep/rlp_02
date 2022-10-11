@@ -28,7 +28,7 @@ let cfePort = 1601;
 */
 
 // Disabled for the success build on the jenkins pipeline
-
+/*
 async.waterfall(
     [
 		function init(setConnect) {
@@ -60,4 +60,4 @@ async function disconnect(state) {
 		console.log('Check the connection...')
 	}	
 }
-
+*/

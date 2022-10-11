@@ -1,3 +1,4 @@
+
 const AbstractRelpFrame = require('../../main/js/AbstractRelpFrame');
 
 describe('AbstractRelpFrame Instantiation try', () => {

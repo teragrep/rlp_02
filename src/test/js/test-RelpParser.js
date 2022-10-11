@@ -37,3 +37,4 @@ describe('RelpParser TestCases', () => {
 it('Command should be rsp', () => {
     expect('rsp').toEqual(parser.getCommandString());
 })
+

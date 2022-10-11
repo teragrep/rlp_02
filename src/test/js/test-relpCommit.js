@@ -24,7 +24,7 @@ let cfePort = 1601;
 */
 
 // Coverity Build purpose
-
+/*
 async.waterfall(
     [
 		function init(setConnect) {
@@ -63,7 +63,7 @@ async function disconnect(state) {
 }
 
 
-let data = Buffer.from('<34>1 2003-10-11T22:14:15.003Z mymachine.example.com su - ID47 - su root failed for lonvick on /dev/pts/8\n', 'ascii');
+let data = Buffer.from('<34>1 2003-10-11T22:14:15.003Z mymachine.example.com su - ID47 - su root failed for lönvick on /dev/pts/8\n', 'utf8');
 let data2 = Buffer.from('<34>1 2003-10-11T22:14:15.003Z mymachine.example.com su - ID47 - su root failed for lonvick on /dev/pts/8\n', 'ascii'); 
 let invalidData = Buffer.from('<344565>5 2003-08-24T05:14:15.000000003-07:00 mymachine.example.com su - ID47 - su root failed for lonvick on /dev/pts/8\n', 'ascii'); // This contains the invalid PRI value
 let sampleData  = Buffer.from('<165>1 2003-10-11T22:14:15.003Z mymachine.example.comevntslog - ID47 [exampleSDID@32473 iut="3" eventSource="Application" eventID="1011"] BOMAn applicationevent log entry...\n','ascii');
@@ -122,3 +122,4 @@ function commit(){
     return resolve(true);
     })  
 }
+*/

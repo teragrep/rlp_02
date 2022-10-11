@@ -122,15 +122,21 @@
          let sp1 = 1;
          let command = Buffer.from(this._command.toString(), 'ascii').length;
          let sp2 = 1;
+         let dataLength;
          if(this._data == null){
              this._dataLength = 0;
          }
-         let dataLength = Buffer.from(this._data.toString(),'utf8').length;    
+         
+         else {
+            dataLength = Buffer.byteLength(this._data, 'utf8')  
+            //dataLength = Buffer.from(this._data.toString(),'utf8').length;    
+         }
+         
          let sp3 = 1;
-         let data = (this._data == null ? 0 : Buffer.byteLength(this._data,'utf8'));
+         let data = (this._data == null || this._data == 'undefined' ? 0 : Buffer.byteLength(this._data,'utf8'));
          let trailer = 1;
-         console.log('CALCULATED LENGTH in RELPREQUEST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',(txn + sp1 + command + sp2 + dataLength + sp3 + data + trailer))
-         console.log('CALCULATED LENGTH in RELPREQUEST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',( dataLength + ' DATA '+ data))
+         //console.log('CALCULATED LENGTH in RELPREQUEST total >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',(txn + sp1 + command + sp2 + dataLength + sp3 + data + trailer))
+         console.log('CALCULATED LENGTH in RELPREQUEST Data >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',( dataLength + ' DATA '+ data))
  
          return txn + sp1 + command + sp2 + dataLength + sp3 + data + trailer;
      }
