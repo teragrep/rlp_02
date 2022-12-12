@@ -123,9 +123,11 @@
       * @todo
       * 1 - Error management
       * 
+      *  
+      * 
       */
  
-     connect(port, hostname){
+    async connect(port, hostname){
  
          return new Promise(async(resolve, reject) => {
      
@@ -165,6 +167,7 @@
              console.log('Connection established');
               
              console.log('Session opening now');
+             this._socket.setNoDelay = false; // passing false will enable Nagle's algorithm which delay data before it is sent via the network
              //Send open session message
                  let relptRequest = new RelpRequest(RelpConnectionCommand.COMMAND_OPEN, _OFFER); //const
                  let connectionOpenBatch = new RelpBatch();
@@ -205,11 +208,20 @@
      }  
  
    
+     delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+      }
+
      /**
+      * comment: 
+      * @todo application properly handles the close connection when it received the ack packet for each relprequest in the one after the other order. However, sometimes asynchronus opreations / 
+      * tcp protocol or  some other reasons If it receives the all responses in one ,
+      * like, when application sends 2 relprequest mesaage packets one after the other, it may cause some unhanldingpromise warning of null payload. it might need to have to further adjust the parser or our mechanism to tackle. 
       * 
       * @returns {Promise}
       */
-     disconnect(){
+     async disconnect(){
+        
          
      return new Promise(async(resolve, reject) => {
  
@@ -227,8 +239,11 @@
          let reqId = connectionCloseBatch.putRequest(relpRequest);
          await this.sendBatch(connectionCloseBatch);
              let closeSuccess = false;
-             let closeResponse = connectionCloseBatch.getResponse(reqId);
-             if(closeResponse._payload._dataLength == 0 ){ // TODO: this is a dirty hack, not an acceptable way.
+             let closeResponse = await connectionCloseBatch.getResponse(reqId);
+             //await this.delay(1000)
+             console.log('CLOSE RESPONSE IS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', closeResponse)
+     
+             if(closeResponse == null || closeResponse._payload._dataLength == 0 || closeResponse._payload.byteLength == 0 ){ // TODO: this is a dirty hack, not an acceptable way.
                    closeSuccess = true;
                    resolve(true);
              }
@@ -245,7 +260,10 @@
              else{
                  reject('Error occured')
              }
-         })        
+            }).catch(null, () => {
+                console.log('Error in PROMISE DISCONNECT...')
+
+        })        
      }
  
         /**
@@ -261,7 +279,7 @@
       * @returns {Promise} a commit promise to return rsp for each of the msgs that are in the batch or fail the commit promise.
       * 
       */  
-         commit(relpBatch){
+        async commit(relpBatch){
  
             return new Promise(async(resolve, reject) => {
  
@@ -270,7 +288,8 @@
                 }
    
                 if(this._state != RelpConnectionState.OPEN){
-                    throw new Error('Session is not in open state, can not commit.');                 }
+                    throw new Error('Session is not in open state, can not commit.');                 
+                }
     
                this._state = RelpConnectionState.COMMIT;
                                       
@@ -322,7 +341,7 @@
                      console.log('GET PENDING...');
                      console.log(this._relpWindow.getPending(txnId));
                      
-                     this.sendRelpRequestAsync(relpRequest);
+                    this.sendRelpRequestAsync(relpRequest);
                  }
                      
                      const res = await this.readAcks(relpBatch);
@@ -333,7 +352,7 @@
                  if(process.env.NODE_ENV == 'RELP_DEBUG'){
                      console.log('relpConnection.sendBatch> exit');
                  }
-             }      
+             }     
          })
      }
  
@@ -417,7 +436,7 @@
      * 2 - Obeservations internal read side buffer increasing -- memory usage stats
      * 3 - Effective & Efficient  internal buffer management - 
      */
-     readAcks(relpBatch){
+     async readAcks(relpBatch){
          const startTime = Date.now(); // for benchmarking.
  
          return new Promise(async(resolve, reject) => {
@@ -426,7 +445,7 @@
                  console.log('relpConnection.readAcks> entry');
              }
              console.log('readAcks getting batch...', relpBatch);
-             let byteBuffer = Buffer.alloc(this._rxBufferSize); // No more usage of this, if we handling the socket data buffer directly...
+            // let byteBuffer = Buffer.alloc(this._rxBufferSize); // No more usage of this, if we handling the socket data buffer directly...
    
              let notComplete = true;
                 
@@ -476,6 +495,12 @@
                                         let cmd = _PARSER.getCommandString();
                                         let len = _PARSER.getLength();
                                         let pdata = _PARSER.getData();
+
+                                        if(len == 0 && (pdata.byteLength == 0 || pdata == undefined)){
+                                            console.log('PData Assigning.....')
+                                            pdata = 0
+
+                                        }
                                      
                                      
                                         let response = new RelpResponse(
@@ -483,7 +508,7 @@
                                             );
                                     
                                         //TODO: This context should update the 
-                                        console.log(response.toString());
+                                        console.log('RESPONSE----',response.toString(), 'len ', len, ' pData ', pdata.byteLength);
                                         console.log('----------------RelpBatch putResponse-------------');
                                         console.log('This is reqID> ',requestId);
                                         relpBatch.putResponse(requestId, response);

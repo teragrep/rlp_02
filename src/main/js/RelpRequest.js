@@ -124,7 +124,7 @@
          let sp2 = 1;
          let dataLength;
          if(this._data == null){
-             this._dataLength = 0;
+             dataLength = 0;
          }
          
          else {
@@ -135,9 +135,6 @@
          let sp3 = 1;
          let data = (this._data == null || this._data == 'undefined' ? 0 : Buffer.byteLength(this._data,'utf8'));
          let trailer = 1;
-         //console.log('CALCULATED LENGTH in RELPREQUEST total >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',(txn + sp1 + command + sp2 + dataLength + sp3 + data + trailer))
-         console.log('CALCULATED LENGTH in RELPREQUEST Data >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',( dataLength + ' DATA '+ data))
- 
          return txn + sp1 + command + sp2 + dataLength + sp3 + data + trailer;
      }
  

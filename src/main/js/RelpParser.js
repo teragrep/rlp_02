@@ -128,7 +128,7 @@
                          console.log('relpParser> length: '+ this._responseLengthString);
                      }
                      // Handling the special command with txnId 0 which is for serverclose
-                     if(this._responseTxnId == 0 && this._responseLength == 0){
+                     if(this._responseTxnId == 0 && this._responseData == null){
                          this._isComplete = true;
                          if(process.env.NODE_ENV == 'RELP_DEBUG'){
                              console.log('relpParser> Special Hint Command: '+this._responseCommandString);  
@@ -150,12 +150,25 @@
                  }
                  break;
              case 'DATA': 
+             
+                 if(this._responseData == null || this._responseData == 'undefined'){
+                   (async () => {
+                        this._responseData = await Buffer.alloc(0); // This for check or change // ***  reading waiting for data
+                    })();
+                    //this._responseData = Buffer.alloc(0)
+                    console.log('THIS relpResponse ', this._responseData)
+                    this._isComplete = true;
+                    this._state = relpParserState.NL;
+                        if(process.env.NODE_ENV == 'RELP_DEBUG'){
+                            console.log('relpParser-----------------------------------------------------------------------> data: '+ this._responseData.toString()); 
+                        }    
+                 }
                  if(this._responseLengthLeft > 0) {
                      if(this._responseData.length > this._responseDataOffset){
-                        // console.log('=====   >>>'+this._responseData.length, this._responseLengthLeft);
+                         console.log('=====  relpParser....................................................................... >>>'+this._responseData.length, this._responseLengthLeft);
                          this._responseData.write(String.fromCharCode(b), this._responseDataOffset);
                          this._responseDataOffset++;
-                        // console.log(this._responseData);
+                        console.log('=====  relpParser....................................................................... >>>',this._responseData);
                         // console.log('relpParser> data b: '+(String.fromCharCode(b)+ ' left: '+ this._responseLengthLeft));
                      }
                       this._responseLengthLeft--;
@@ -163,11 +176,18 @@
                       if(process.env.NODE_ENV == 'RELP_DEBUG'){
                          console.log('relpParser> data b: '+String.fromCharCode(b)+' left '+ this._responseLengthLeft);//TODO: Check
                      }
-                 }
+
+                     if(this._responseData.byteLength == 0 && this._responseLengthLeft == 0) {
+                        this._isComplete = true;
+                        this._state = relpParserState.NL;
+                        if(process.env.NODE_ENV == 'RELP_DEBUG'){
+                            console.log('relpParser-----------------------------------------------------------------------> data: '+ this._responseData.toString()); 
+                        }
+                        break;
+                    }
+                 }            
                  if(this._responseLengthLeft == 0) {
- 
                      //TODO: Check the behaviour
- 
                      this._state = relpParserState.NL;
                      if(process.env.NODE_ENV == 'RELP_DEBUG'){
                          console.log('relpParser> data: '+ this._responseData.toString()); 
@@ -175,11 +195,17 @@
                  }
                  break;
              case 'NL':
-                 if(b == '\n'.charCodeAt(0)) {
+                 if(b == '\n'.charCodeAt(0)) { // So this shows when close the connection there is an extra byte following --> '2'.charCodeAt(0)
                      this._isComplete = true;
                      if(process.env.NODE_ENV == 'RELP_DEBUG'){
                          console.log('relpParser> newLine: '+ String.fromCharCode(b)+' left '+ this._responseLengthLeft); //TODO: Check
                      }
+                 }
+                 else if(this._responseData.byteLength == 0 && this._responseLengthString == '0' || this._responseData == undefined){ // 🤔 acceptable??? 
+                     this._isComplete = true
+                     if(process.env.NODE_ENV == 'RELP_DEBUG'){
+                        console.log('relpParser> newLine: '+ String.fromCharCode(b)+' left '+ this._responseLengthString); //TODO: Check
+                    }
                  }
                  else {
                      throw new Error('relp response parsing failure');

@@ -68,21 +68,22 @@ let data2 = Buffer.from('<34>1 2003-10-11T22:14:15.003Z mymachine.example.com su
 let invalidData = Buffer.from('<344565>5 2003-08-24T05:14:15.000000003-07:00 mymachine.example.com su - ID47 - su root failed for lonvick on /dev/pts/8\n', 'ascii'); // This contains the invalid PRI value
 let sampleData  = Buffer.from('<165>1 2003-10-11T22:14:15.003Z mymachine.example.comevntslog - ID47 [exampleSDID@32473 iut="3" eventSource="Application" eventID="1011"] BOMAn applicationevent log entry...\n','ascii');
 
-function commit(){
+async function commit(conn){
 
+   if(conn) {
     return new Promise(async(resolve, reject) => {
 
     let relpBatch = new RelpBatch();
     relpBatch.insert(data);
+    relpBatch.insert(data2);
     relpBatch.insert(data);
+    relpBatch.insert(data2);
     relpBatch.insert(data);
-    relpBatch.insert(data);
+    //relpBatch.insert(data2);
     console.log(relpBatch);
 
     let resWindow = await relpConnection.commit(relpBatch);
     console.log('After Batch-1 Completion....', resWindow)
-    
-    
     let notSent = (resWindow === true) ? true : false; //Test purpose 
           
            //a commit promise to return rsp for each of the msgs that are in the batch or fail the commit promise.
@@ -93,13 +94,13 @@ function commit(){
             if(res){
                 notSent = false;
                 console.log('VerifyTransactionAllPromise......', res);
-                resolve(true);
+               return resolve(true);
             }
             else{
                 reject(false);
             }                              
            }    
-
+/*
     let relpBatch2 = new RelpBatch();
 
     // Tested for the Max Messages approx around 10250 messages works fine, however, more than 10300 might produce RangeError 
@@ -119,6 +120,13 @@ function commit(){
     
    
     relpConnection.commit(relpBatch2);
+ */
+   
     return resolve(true);
-    })  
+
+    })   
+} 
+
+await disconnect(resWindow);
+
 }

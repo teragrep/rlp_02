@@ -19,6 +19,7 @@ let relpConnection = new RelpConnection();
 let host = '127.0.0.1';
 let port = 1337; 
 let cfePort = 1601;
+let state = false;
 
 
 /** 
@@ -28,7 +29,7 @@ let cfePort = 1601;
 */
 
 // Disabled for the success build on the jenkins pipeline
-/*
+
 async.waterfall(
     [
 		function init(setConnect) {
@@ -49,10 +50,11 @@ async.waterfall(
 
 
 async function connect() {
-		return  relpConnection.connect(cfePort, host);	
+		state =  relpConnection.connect(cfePort, host);	
+        return state;
 }
 
-async function disconnect(state) {
+async function disconnect() {
 	if(state){
 		 relpConnection.disconnect();
 	}
@@ -60,4 +62,4 @@ async function disconnect(state) {
 		console.log('Check the connection...')
 	}	
 }
-*/
+

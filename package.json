@@ -38,7 +38,7 @@
     "karma": "^6.3.3",
     "karma-jasmine": "^4.0.1",
     "karma-requirejs": "^1.1.0",
-    "node": "^14.20.1",
+    "node": "^14.21.0",
     "requirejs": "^2.3.6"
   },
   "keywords": [
