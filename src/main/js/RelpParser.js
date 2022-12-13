@@ -201,7 +201,7 @@
                          console.log('relpParser> newLine: '+ String.fromCharCode(b)+' left '+ this._responseLengthLeft); //TODO: Check
                      }
                  }
-                 else if(this._responseData.byteLength == 0 && this._responseLengthString == '0' || this._responseData == undefined){ // 🤔 acceptable??? 
+                 else if(this._responseData.byteLength == 0 && this._responseLengthString == '0'){ // adjust 
                      this._isComplete = true
                      if(process.env.NODE_ENV == 'RELP_DEBUG'){
                         console.log('relpParser> newLine: '+ String.fromCharCode(b)+' left '+ this._responseLengthString); //TODO: Check

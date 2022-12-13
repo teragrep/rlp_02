@@ -496,7 +496,7 @@
                                         let len = _PARSER.getLength();
                                         let pdata = _PARSER.getData();
 
-                                        if(len == 0 && (pdata.byteLength == 0 || pdata == undefined)){
+                                        if(len == 0 && (pdata.byteLength == 0)){
                                             console.log('PData Assigning.....')
                                             pdata = 0
 
