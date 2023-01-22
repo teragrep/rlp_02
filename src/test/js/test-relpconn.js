@@ -40,8 +40,12 @@ else {
     console.log('Check the connection...')
 }	
 }
-
+/**
+ * Disabled for the coverity build
+ */
+/*
 beforeEach(async function() {
     await connect();
     await disconnect()
 })
+*/

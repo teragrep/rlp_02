@@ -92,13 +92,16 @@ else {
     console.log('Check the connection...')
 }	
 }
-
+/**
+ * Disabled for the coverity build 
+ */
+/*
 beforeEach(async function() {
     let conn = await connect();
     await commit(conn)
     await disconnect()
 })
-
+*/
 let data = Buffer.from('<34>1 2003-10-11T22:14:15.003Z mymachine.example.com su - ID47 - su root failed for lönvick on /dev/pts/8\n', 'utf8');
 let data2 = Buffer.from('<34>1 2003-10-11T22:14:15.003Z mymachine.example.com su - ID47 - su root failed for lonvick on /dev/pts/8\n', 'ascii'); 
 let invalidData = Buffer.from('<344565>5 2003-08-24T05:14:15.000000003-07:00 mymachine.example.com su - ID47 - su root failed for lonvick on /dev/pts/8\n', 'ascii'); // This contains the invalid PRI value
