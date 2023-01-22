@@ -129,7 +129,7 @@
  
     async connect(port, hostname){
  
-         return new Promise(async(resolve, reject) => {
+        return new Promise(async(resolve, reject) => { // this async does not make much sense
      
  
          console.log('Connection call ' + process.env.NODE_ENV);
@@ -202,6 +202,7 @@
                  });
                  
                  this._socket.on('error', (error) => {
+                    reject('Connection breaks!!!')
                      console.log(error);
                  });
          });  
@@ -317,7 +318,7 @@
         
          console.log('Wecome to the relpBatch ');
  
-         return new Promise(async (resolve, reject) => {
+         return  new Promise(async (resolve, reject) => {
              if( relpBatch instanceof RelpBatch) {
                  console.log('This is instance of RelpBatch')
                  if(process.env.NODE_ENV == 'RELP_DEBUG'){
@@ -373,7 +374,7 @@
  
          const startTime = Date.now(); // for benchmarking.
  
-         return new Promise(async(resolve, reject) => {
+         return  new Promise(async(resolve, reject) => {
              console.log('RelpReqAsync...',relpRequest.toString())
  
              const error = false;
@@ -401,6 +402,7 @@
              //TODO: Socket conn Timeout
              this._socket.write(relpRequest.toString(), 'utf8'); //TODO: req the Validation 
              console.log('---------------------Benchmarking on SendRelpRequestAsync------------------------%ss', (Date.now() - startTime)/1000);       
+             return resolve(true)
         }) 
    }
    /**
@@ -439,7 +441,7 @@
      async readAcks(relpBatch){
          const startTime = Date.now(); // for benchmarking.
  
-         return new Promise(async(resolve, reject) => {
+         return  new Promise(async(resolve, reject) => {
  
              if(process.env.NODE_ENV == 'RELP_DEBUG') {
                  console.log('relpConnection.readAcks> entry');

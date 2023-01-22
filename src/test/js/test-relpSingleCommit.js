@@ -1,3 +1,8 @@
+/**
+ * This is an updated test case for RELP commit with Jasmine async works
+ *  
+ */
+
 var config = require('dotenv');
 
 
@@ -15,9 +20,11 @@ let relpConnection = new RelpConnection();
 let host = '127.0.0.1';
 let port = 1337; 
 let cfePort = 1601;
+let state = false;
 
 
 /** 
+ * 
  * As waterfall method takes the previous task output as the input for the next task,
  * thus need to feed the connection state for the disconnection.
  * 
@@ -25,6 +32,12 @@ let cfePort = 1601;
 
 // Coverity Build purpose
 
+
+/**
+ * As Jasmine handles the complete async execution, this is disabled however, in case run the test on the 
+ * node engine just enable the following waterfall method, run on the node. 
+ */
+/*
 async.waterfall(
     [
 		function init(setConnect) {
@@ -44,24 +57,47 @@ async.waterfall(
         }
     }
 );
+*/
 
 
 
+/*
 async function connect() {
-		let conn = await relpConnection.connect(cfePort, host);	
+		let conn =  relpConnection.connect(cfePort, host);	
 		return conn;
 }
 
 async function disconnect(state) {
 	if(state){
-		 await relpConnection.disconnect();
+		  relpConnection.disconnect();
 	}
 	else {
 		console.log('Check the connection...')
 	}
 	
 }
+*/
 
+async function connect() {
+    state =  relpConnection.connect(cfePort, host);	
+    return state;
+}
+
+async function disconnect() {
+if(state){
+     relpConnection.disconnect();
+     console.log('Test for the flow....')
+}
+else {
+    console.log('Check the connection...')
+}	
+}
+
+beforeEach(async function() {
+    let conn = await connect();
+    await commit(conn)
+    await disconnect()
+})
 
 let data = Buffer.from('<34>1 2003-10-11T22:14:15.003Z mymachine.example.com su - ID47 - su root failed for lönvick on /dev/pts/8\n', 'utf8');
 let data2 = Buffer.from('<34>1 2003-10-11T22:14:15.003Z mymachine.example.com su - ID47 - su root failed for lonvick on /dev/pts/8\n', 'ascii'); 
@@ -121,7 +157,8 @@ async function commit(conn){
    
     relpConnection.commit(relpBatch2);
  */
-   
+
+  
     return resolve(true);
 
     })   
