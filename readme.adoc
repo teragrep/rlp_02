@@ -1,54 +1,48 @@
-![Teragrep Logo](https://avatars.githubusercontent.com/u/71876378?s=200&v=4)
+image::https://avatars.githubusercontent.com/u/71876378?s=200&v=4[Teragrep Logo]
 
-<a href="https://scan.coverity.com/projects/teragrep-rlp_02">
-  <img alt="Coverity Scan Build Status"
-       src="https://scan.coverity.com/projects/24236/badge.svg"/>
-</a>
+image::https://scan.coverity.com/projects/24236/badge.svg[Coverity Scan Build Status, link="https://scan.coverity.com/projects/teragrep-rlp_02"]
 
-
----
-
-## RLP-02
+= RLP_02
 
 rlp_02 minimal implementation of the RELP protocol using NodeJS.
 This embraces similar implementation of his big brother RLP-01 java library.
 
-* [Java implementation] (https://github.com/teragrep/rlp_01 "RLP-01 Java Library")
+* https://github.com/teragrep/rlp_01[Java implementation]
 
+== Specs
 
----
-### Specs
+https://github.com/rsyslog/librelp/blob/master/doc/relp.html[Specs Link] 
 
-[Specs Link] (https://github.com/rsyslog/librelp/blob/master/doc/relp.html "RELP Protocol Specifications")
+== Documentation
+ 
+See the official documentation on https://docs.teragrep.com[docs.teragrep.com].
 
----
-### Install
+== Install
 
-```npm
+[source,npm]
+----
 npm install @teragrep/rlp_02
-```
+----
 
----
-### Importing modules
+== Importing modules
 
 Supporting from version "@teragrep/rlp_02": "^1.0.19-rc12"
 
-```javascript
-
+[source,javascript]
+----
 const { RelpConnection, RelpBatch, RelpRequest, RelpBatch, RelpWindow } = require('@teragrep/rlp_02')
-```
+----
 
----
-### Test
+== Test
 
 The Maven build executes the test goal. Karma is a testing harness that is configured to jasmine framework. 
 
 Jasmine async works completely control the asynchronus behaviour.
 
-### Example Relp Connection and Commit configuration
+== Example Relp Connection and Commit configuration
 
-```JavaScript 
-
+[source,javascript] 
+----
 // Load the required modules
 
 var config = require('dotenv');
@@ -149,12 +143,12 @@ function commit(){
     return resolve(true);
     })  
 }
+----
 
-```
+== Usage of our RLP_02 RelpConnection with RLO_08 component
 
-### Usage of our RLP_02 RelpConnection with RLO_08 component
-```JavaScript 
-
+[source,javascript] 
+----
 /*
 * Note: This is ONLY shown the part of necessary code snippets. 
 * In this demo, we use Relp Logging Out component generates the Syslog message, 
@@ -250,10 +244,30 @@ async function commit(msg){
      return resolve(true);
     }) 
 }
+----
 
-```
-### TODO
+== TODO
 
 * Handling Socket timeout 
 * Error Management
 
+== Contributing
+ 
+// Change the repository name in the issues link to match with your project's name
+ 
+You can involve yourself with our project by https://github.com/teragrep/rlp_02/issues/new/choose[opening an issue] or submitting a pull request.
+ 
+Contribution requirements:
+ 
+. *All changes must be accompanied by a new or changed test.* If you think testing is not required in your pull request, include a sufficient explanation as why you think so.
+. Security checks must pass
+. Pull requests must align with the principles and http://www.extremeprogramming.org/values.html[values] of extreme programming.
+. Pull requests must follow the principles of Object Thinking and Elegant Objects (EO).
+ 
+Read more in our https://github.com/teragrep/teragrep/blob/main/contributing.adoc[Contributing Guideline].
+ 
+=== Contributor License Agreement
+ 
+Contributors must sign https://github.com/teragrep/teragrep/blob/main/cla.adoc[Teragrep Contributor License Agreement] before a pull request is accepted to organization's repositories.
+ 
+You need to submit the CLA only once. After submitting the CLA you can contribute to all Teragrep's repositories. 
