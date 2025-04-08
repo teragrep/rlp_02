@@ -1,12 +1,26 @@
 name: CI
 
-on: push
+on: [ push ]
 
 jobs:
-  # Confirm the coverity upload
-  coverity_upload:
-    uses: teragrep/rlp_02/.github/workflows/coverity_upload.yaml@main
-    secrets: 
-      COVERITY_TOKEN: ${{ secrets.COVERITY_TOKEN }}
-      COVERITY_EMAIL: ${{ secrets.COVERITY_EMAIL }}
-  
+  upload:
+    name: CI
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache Local Maven Repository
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 8.0.292+10
+          distribution: 'adopt'
+
+      - name: Run CI
+        run: mvn --batch-mode clean verify
